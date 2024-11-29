@@ -3,4 +3,3 @@ STATUS: dict = {
     "in_stock": "В наличии",
     "issued": "Выдана"
 }
-
