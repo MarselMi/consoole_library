@@ -17,7 +17,10 @@ class Validator:
         self.check_instance_obj(obj_validate)
         self.check_year(obj_validate)
         self.check_lenght_str_fields(obj_validate)
-
+    
+    def console_data_validate(self, args):
+        pass
+        
     @staticmethod
     def check_instance_obj(obj_validate: Book | None):
         if not isinstance(obj_validate, Book):
