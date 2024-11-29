@@ -29,8 +29,8 @@ class CreateBook(BaseBook):
             self.book_id += 1
             new_book: Book = Book(self.book_id, self.title, self.author, self.year, STATUS["in_stock"])
 
-            validator = Validator()
-            validator.create_validate(new_book)
+            # validator = Validator()
+            # validator.create_validate(new_book)
 
             books.append(new_book.__dict__)
             fw.writelines(json.dumps({"Books": list(books)}))
