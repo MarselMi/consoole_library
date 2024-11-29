@@ -4,9 +4,17 @@ from models import Book
 
 
 class Validator:
+    """
+    validator = Validator()
+    validator.book_create_validate(book_instance: Book)
+    Для валидации данных при создании необходимо инициализировать
+    класс Validator, затем ввзвать метод book_create_validate()
+    передав в него обьет класса Book
+    """
 
-    def create_validate(self, obj_validate: Book):
+    def book_create_validate(self, obj_validate: Book):
         self.check_instance_obj(obj_validate)
+        self.check_year(obj_validate)
 
     @staticmethod
     def check_instance_obj(obj_validate: Book | None):
