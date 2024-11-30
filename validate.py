@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from datetime import datetime as dt
 
 from values import MAX_LENGTH, STATUS
-from models import Book
 
 
 class Validator(ABC):
@@ -10,31 +9,15 @@ class Validator(ABC):
     @abstractmethod
     def validate(self, obj_validated):
         pass
-    
-    
-class ArgsValidator(Validator):
-    
-    def validate(self, obj_validated):
-        self.create_data_validator(obj_validated)
-    
-    @staticmethod
-    def create_data_validator(obj_validated):
-        for key, val in obj_validated.items():
-            if len(val) > MAX_LENGTH:
-                raise IndexError(f"Поле {key} содеожит слишком много символов")
 
-        int_year = obj_validated.get("year")
-        if int_year < 1 or int_year > dt.now().year:
-            raise ValueError("Год не может быть отрицательным числом")
-    
-    
+
 class BookValidator(Validator):
     """
     validator = Validator()
-    validator.validate(book_instance: Book)
+    validator.validate(params: dict)
     Для валидации данных при создании необходимо инициализировать
-    класс Validator, затем ввзвать метод .validate
-    передав в него обьет класса Book
+    класс Validator, затем ввзвать метод .validate(val_obj: dict)
+    передав в него обьект для валидации
     """
 
     def validate(self, obj_validated: dict):
@@ -44,11 +27,6 @@ class BookValidator(Validator):
 
     def update_validate(self, obj_validated: dict):
         self.update_status_validator(obj_validated)
-
-    @staticmethod
-    def check_instance_obj(obj_validated: dict | None):
-        if not isinstance(obj_validated, Book):
-            raise ValueError("Обьект не является экземпляром Книги")
 
     @staticmethod
     def check_year(obj_validated: dict):
@@ -64,6 +42,7 @@ class BookValidator(Validator):
 
         if obj_validated.get("year") < 1:
             raise ValueError("Год не может быть отрицательным числом")
+
         if obj_validated.get("year") > dt.now().year:
             raise ValueError("Год не может быть больше текущего")
             
